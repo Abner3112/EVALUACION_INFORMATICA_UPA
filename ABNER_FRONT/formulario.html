@@ -1,11 +1,41 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
     <title>Formulario</title>
 </head>
 <body>
-    <h1>Bienvenidos al formulario</h1>
+    <form id="formulario">
+        <div>
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" required>
+            <span id="errorNombre" style="color: red;"></span>
+        </div>
+        <div>
+            <label for="fechaNacimiento">Fecha de Nacimiento (dd-mm-YYYY):</label>
+            <input type="text" id="fechaNacimiento" required>
+            <span id="errorFecha" style="color: red;"></span>
+        </div>
+        <div>
+            <label for="telefono">Teléfono:</label>
+            <input type="text" id="telefono" required>
+            <span id="errorTelefono" style="color: red;"></span>
+        </div>
+        <div>
+            <label for="email">Correo electrónico:</label>
+            <input type="email" id="email" required>
+            <span id="errorEmail" style="color: red;"></span>
+        </div>
+        <div>
+            <label for="edad">Edad:</label>
+            <input type="text" id="edad" readonly>
+        </div>
+        <button type="submit">Enviar</button>
+        <p id="mensajeExito" style="color: green;"></p>
+        <p id="mensajeError" style="color: red;"></p>
+    </form>
+    <script src="script.js"></script>
 </body>
 </html>
