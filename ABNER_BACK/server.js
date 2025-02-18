@@ -40,9 +40,9 @@ app.get("/", (req, res) => {
     res.sendFile(path.join(frontPath, "index.html"));
 });
 
-// ----------------------------------------
+// -----------------------------------------
 // 🟢 RUTA PARA EJECUTAR REPORTES
-// ----------------------------------------
+// -----------------------------------------
 
 app.get("/ejecutar_reporte/:reporte", (req, res) => {
     const { reporte } = req.params;
