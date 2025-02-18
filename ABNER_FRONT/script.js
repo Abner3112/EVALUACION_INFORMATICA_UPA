@@ -100,7 +100,7 @@ function enviarFormulario() {
     }
 }
 
-// Mostrar reportes
+// Mostrar reportes desde el html
 function obtenerReporte(reporte) {
     fetch(`http://localhost:3000/ejecutar_reporte/${reporte}`)
         .then(response => {
