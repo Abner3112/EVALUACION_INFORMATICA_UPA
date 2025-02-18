@@ -1,11 +1,123 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulario</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reportes de Usuarios</title>
+<style>
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        margin: 20px;
+        background: linear-gradient(135deg, #007BFF, #28A745);
+        color: #fff;
+    }
+    h1 {
+        text-align: center;
+        color: #fff;
+        margin-bottom: 30px;
+    }
+    ul {
+        list-style-type: none;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+    }
+    ul li a {
+        text-decoration: none;
+        color: #fff;
+        background-color: #007BFF;
+        padding: 12px 20px;
+        border-radius: 10px;
+        transition: background-color 0.3s;
+    }
+    ul li a:hover {
+        background-color: #28A745;
+    }
+    #contenido-reporte {
+        margin-top: 30px;
+        padding: 20px;
+        border-radius: 15px;
+        background-color: #fff;
+        color: #333;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+    table, th, td {
+        border: 1px solid #ddd;
+    }
+    th, td {
+        padding: 12px;
+        text-align: left;
+    }
+    th {
+        background-color: #007BFF;
+        color: white;
+    }
+    tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+</style>
 </head>
 <body>
-    <h1>Bienvenidos a los Reportes</h1>
+<h1>Reportes de Usuarios</h1>
+<ul>
+    <li><a href="#" onclick="cargarReporte('todos_usuarios')">Todos los usuarios</a></li>
+    <li><a href="#" onclick="cargarReporte('usuarios_creados_hoy')">Usuarios creados hoy</a></li>
+    <li><a href="#" onclick="cargarReporte('usuarios_creados_ayer')">Usuarios creados ayer</a></li>
+</ul>
+
+<div id="contenido-reporte">
+    <!-- Aquí se mostrará el contenido del reporte -->
+</div>
+
+<script>
+    function cargarReporte(reporte) {
+        const url = `http://localhost:3000/ejecutar_reporte/${reporte}`;
+        fetch(url)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("Error al obtener los datos del reporte.");
+                }
+                return response.json();
+            })
+            .then(data => {
+                mostrarReporte(data);
+            })
+            .catch(error => {
+                console.error("Error al cargar el reporte:", error);
+                document.getElementById("contenido-reporte").innerHTML = `
+                    <p style="color: red;">Error al cargar el reporte: ${error.message}</p>
+                `;
+            });
+    }
+
+    function mostrarReporte(data) {
+        const contenido = document.getElementById("contenido-reporte");
+        if (data.length === 0) {
+            contenido.innerHTML = "<p>No hay datos para mostrar.</p>";
+            return;
+        }
+
+        let html = "<table>";
+        html += "<tr><th>ID</th><th>Nombre</th><th>Teléfono</th><th>Correo</th><th>Creación</th><th>Estado</th></tr>";
+        data.forEach(usuario => {
+            html += `
+                <tr>
+                    <td>${usuario.id}</td>
+                    <td>${usuario.nombre}</td>
+                    <td>${usuario.telefono}</td>
+                    <td>${usuario.correo}</td>
+                    <td>${usuario.creacion}</td>
+                    <td>${usuario.estado}</td>
+                </tr>
+            `;
+        });
+        html += "</table>";
+        contenido.innerHTML = html;
+    }
+</script>
 </body>
 </html>
