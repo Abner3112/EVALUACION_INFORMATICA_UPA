@@ -16,7 +16,7 @@ const connection = mysql.createConnection({
     database: "evaluacion_abner"
 });
 
-// Conectar a la base de datos
+// Conectar a la base de datos con mysql
 connection.connect((err) => {
     if (err) {
         console.error("❌ Error conectando a la base de datos:", err);
