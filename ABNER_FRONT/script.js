@@ -25,7 +25,7 @@ function enviarPunteo() {
     }
 
     if (validar) {
-        fetch("http://localhost:3000/ingresar_punteo", {
+        fetch("http://localhost:3000/guardar_punteo", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
@@ -42,7 +42,7 @@ function enviarPunteo() {
             }
         })
         .catch(error => {
-            document.getElementById("Error").textContent = "Error al enviar el formulario.";
+            document.getElementById("Error").textContent = "Error al enviar el PUNTEO.";
         });
     }
 }

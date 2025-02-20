@@ -153,6 +153,36 @@ app.post("/guardar_usuario", (req, res) => {
     });
 });
 
+
+// ----------------------------------------
+// 🔵 RUTA PARA GUARDAR PUNTEO
+// ----------------------------------------
+app.post("/guardar_punteo", (req, res) => {
+    const { punteo_correo, punteo_numero} = req.body;
+    console.log("Datos recibidos:", req.body);
+    if (!punteo_correo || !punteo_numero) {
+        return res.status(400).json({ error: "Todos los campos son obligatorios." });
+    }
+    if (!/^[\w.-]+@[a-zA-Z\d.-]+\.[a-zA-Z]{2,}$/.test(punteo_correo)) {
+        return res.status(400).json({ error: "El formato del correo electrónico no es válido." });
+    }
+    if (!/^\d{0,99}$/.test(punteo_numero)) {
+        return res.status(400).json({ error: "SOLO NUMEROS" });
+    }
+    const query = `
+        INSERT INTO punteo_usuario (PUNTEO, FECHA_INGRESO, ID_USUARIO)
+        VALUES (?, NOW(), ?)
+    `;
+    const contenido = [punteo_correo, punteo_numero];
+    connection.query(query, contenido, (err, result) => {
+        if (err) {
+            console.error("❌ Error al guardar el usuario:", err);
+            return res.status(500).json({ error: "Error al guardar el punteo." });
+        }
+        res.status(201).json({ mensaje: "✅ Punteo guardado exitosamente" });
+    });
+});
+
 // ----------------------------------------
 // 🚀 INICIAR SERVIDOR
 // ----------------------------------------
