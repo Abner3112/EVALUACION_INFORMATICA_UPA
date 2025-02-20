@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PUNTEO</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 20px;
+            background: linear-gradient(135deg, #007BFF, #28A745);
+            color: #fff;
+        }
+        h1 {
+            text-align: center;
+            color: #fff;
+            margin-bottom: 30px;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        ul li a {
+            text-decoration: none;
+            color: #fff;
+            background-color: #007BFF;
+            padding: 12px 20px;
+            border-radius: 10px;
+            transition: background-color 0.3s;
+        }
+        ul li a:hover {
+            background-color: #28A745;
+        }
+        #contenido-reporte {
+            margin-top: 30px;
+            padding: 20px;
+            border-radius: 15px;
+            background-color: #fff;
+            color: #333;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #007BFF;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h1>PUNTEO USUARIO</h1>
+    <form id="punteo">
+        <div>
+            <label for="correo">Ingrese Correo:</label>
+            <input type="text" id="correo" required>
+            <span id="errorCorreo" style="color: red;"></span>
+        </div>
+        <div>
+            <label for="numero">INGRESE NUMERO:</label>
+            <input type="number" id="numero" required>
+            <span id="errorNumero" style="color: red;"></span>
+        </div>
+        <div>
+        <button type="submit">Enviar</button>
+        <p id="Exito" style="color: green;"></p>
+        <p id="Error" style="color: red;"></p>
+    </form>
+    <script src="script.js"></script>
+</body>
+</html>

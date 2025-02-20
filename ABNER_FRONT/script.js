@@ -1,3 +1,61 @@
+// ----------------------------------      PARA EL PUNTEO                     -------------------------------
+document.getElementById("punteo")?.addEventListener("submit", function (event) {
+    event.preventDefault();
+    enviarPunteo();
+});
+function enviarPunteo() {
+    const punteo_correo = document.getElementById("correo").value;
+    const punteo_numero = document.getElementById("numero").value;
+
+
+    let validar = true;
+
+    if (!validarCorreo(punteo_correo)) {
+        document.getElementById("errorCorreo").textContent = "El Correo es incorrecto.";
+        validar = false;
+    } else {
+        document.getElementById("errorCorreo").textContent = "";
+    }
+
+    if (!validarNumero(punteo_numero)) {
+        document.getElementById("errorNumero").textContent = "Solo numeros.";
+        validar = false;
+    } else {
+        document.getElementById("errorNumero").textContent = "";
+    }
+
+    if (validar) {
+        fetch("http://localhost:3000/ingresar_punteo", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                punteo_correo,
+                punteo_numero
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.error) {
+                document.getElementById("Error").textContent = data.error;
+            } else {
+                document.getElementById("Exito").textContent = `PUNTEO GUARDADO`;
+            }
+        })
+        .catch(error => {
+            document.getElementById("Error").textContent = "Error al enviar el formulario.";
+        });
+    }
+}
+function validarCorreo(correo) {
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return regex.test(correo);
+}
+
+function validarNumero(numero) {
+    const regex = /^[0-9]+$/;
+    return regex.test(numero);
+}
+// ----------------------------------      PARA EL FORMULARIO                  -------------------------------
 // Función para validar el nombre (solo letras)
 function validarNombre(nombre) {
     const regex = /^[a-zA-Z\s]+$/;
